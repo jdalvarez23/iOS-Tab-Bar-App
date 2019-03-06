@@ -58,6 +58,7 @@ class RedViewController: UIViewController {
         let defaultAction = UIAlertAction(title: "Call", style: .default) { (action) in
             
             // Respond to user selection of action
+            self.dialNumber(number: "(773) 481-8970")
             
         }
         
@@ -66,10 +67,12 @@ class RedViewController: UIViewController {
             
         }
     
+        // change color of default action button text
+        // defaultAction.setValue(UIColor.red, forKey: "titleTextColor")
         
         
         // create and configure the alert controller
-        let alertController = UIAlertController(title: "Campus Security", message: "Would you like to call security?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Campus Security", message: "Would you like to call Wright College Campus Security?", preferredStyle: .alert)
         
         // add action buttons to alert controller
         alertController.addAction(defaultAction)
@@ -82,4 +85,19 @@ class RedViewController: UIViewController {
         
     }
     
+    func dialNumber(number: String) {
+        
+        guard let url = URL(string: "tel://\(number)") else {
+            return
+        }
+        
+        // execute if device is on iOS 10.0 or newer
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+        // execute if device is older than iOS 10.0
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+        
+    }
 }
